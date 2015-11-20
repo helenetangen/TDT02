@@ -18,8 +18,13 @@ The area of focus of the Carbonite algorithm is durably and cost-efficiently sto
 
 \noindent Carbonite is tested using the PlanetLab testbed a synthetic trace and the results are compared against Cates and TotalRecall as well as an oracle that is knows if a failure is transient and thereby only creates replications in case of disk failure. For both test cases, Carbonite outperform Cates and TotalRecal, and is only beaten by the oracle, the perfect hypothetical system. Carbonite creates 44\% more data then the oracle when when keeping 1T of data durable. Results also shows that as long as the target number of replicas $r_L$ is well chosen, the system is durable. However, they do not have any results on availability which would be interesting to look at, this is justified based on the observation that users can tolerate some unavailability, but should be included because users will not tolerate too much unavailability either.\textcolor{red}{Think I should remove this remark on availability to the last section.}\\
 
-\noindent Applications.\\
+\noindent Carbonite can be applied to systems that require durably storing of large amounts of data. As they mention, the systems must be able to handle some unavailability. For instance, they mention that news paper readers can tolerate some unavailability as long as they are able to read the news article at some point.\\
 
-\noindent Trust results.\\
+\noindent Carbonite in compared against different systems and the results in the paper looks promising when it comes to durability in a large scale system. However, as mentioned above, the paper does not present any results of availability of the system. Even though durability might be a more practical and useful goal than availability for this kind of system, it will be useless if non of the object are ever available. While the research presented is promising it is yet to be tested on a real-world application. A few assumptions, that might not be that realistic, such as assuming that the disks fail independently, no shared bottlenecks, and that available nodes are reachable from all other nodes, should be tested. The good think is, that the authors have acknowledge the need for real-world testing and have developed prototypes of different applications for which they promise to report on long-term experience with.  \\
+
+
+% Assumptions
+% Real world
+% Look at related work
 
 \end{document}
