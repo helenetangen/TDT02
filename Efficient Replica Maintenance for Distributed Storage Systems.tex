@@ -1,11 +1,8 @@
 \documentclass{article}
 \usepackage[utf8]{inputenc}
 \usepackage{multicol}
-\usepackage{graphicx}
-\usepackage{geometry}
 \usepackage{color}
 \usepackage{amssymb}
-\usepackage{graphicx}
 \usepackage{caption}
 
 
@@ -21,6 +18,8 @@ The area of focus of the Carbonite algorithm is durably and cost-efficiently sto
 
 \noindent Carbonite is tested using the PlanetLab testbed a synthetic trace and the results are compared against Cates and TotalRecall as well as an oracle that is knows if a failure is transient and thereby only creates replications in case of disk failure. For both test cases, Carbonite outperform Cates and TotalRecal, and is only beaten by the oracle, the perfect hypothetical system. Carbonite creates 44\% more data then the oracle when when keeping 1T of data durable. Results also shows that as long as the target number of replicas $r_L$ is well chosen, the system is durable. However, they do not have any results on availability which would be interesting to look at, this is justified based on the observation that users can tolerate some unavailability, but should be included because users will not tolerate too much unavailability either.\textcolor{red}{Think I should remove this remark on availability to the last section.}\\
 
-\noindent 
+\noindent Applications.\\
+
+\noindent Trust results.\\
 
 \end{document}
