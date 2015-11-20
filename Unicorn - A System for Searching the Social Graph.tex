@@ -13,6 +13,12 @@
 
 \section{Unicorn: A System for Searching the Social Graph}
 
-Unicorn is a in-memory indexing system developed by Facebook Inc. used for social graph retrieval and social ranking. It's built to support trillions of edges, billions of users and thousands of servers. Unicorn also supports real-time updates and per-edge privacy (even though privacy is enforced by the front-end) while serving billions of queries each day at low latencies.
+The domain area of [Curtiss et al.] is social graph search and retrieval. Unicorn is a in-memory indexing system developed by Facebook Inc. used for social graph retrieval and social ranking. It is built to support trillions of edges, billions of users and thousands of servers. Unicorn also supports real-time updates, per-edge privacy (even though privacy is enforced by the front-end) while serving billions of queries each day at low latencies.\\
+
+\noindent According to [Curtiss et al.] there exist similar search indexing systems, but no one that is initially built to support social graph search and with the scale of Unicorn both in data volume and query volume. Hence, the motivation behind Unicorn was to build a indexing system specific for the social graph purposes. By building a specialized indexing system for the Facebook back-end, Facebook-specific properties could be incorporated into the design. Hence, choices such as representing the social graph as an adjacency list because of observations that the social graph is sparse (average number of friends is 130)
+
+% Built with facebook in mind. Social graph space, even trilling of edges - therefore adjecency list.
+% Needs to support privacy fast. Real-time queries. 
+% Specialice search and work on per reck algorithms. 
 
 \end{document}
