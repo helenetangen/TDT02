@@ -9,7 +9,7 @@
 
 \section*{Unicorn: A System for Searching the Social Graph}
 
-The domain area of [Curtiss et al.] is social graph search and retrieval. Unicorn is a in-memory indexing system developed by Facebook Inc. used for social graph retrieval and social ranking. It is built to support trillions of edges, billions of users and thousands of servers. Unicorn also supports real-time updates, per-edge privacy (even though privacy is enforced by the front-end) while serving billions of queries each day at low latencies.\\
+The domain area of Unicorn is social graph search and retrieval. Unicorn is a in-memory indexing system developed by Facebook Inc. used for social graph retrieval and social ranking. It is built to support trillions of edges, billions of users and thousands of servers. Unicorn also supports real-time updates, per-edge privacy (even though privacy is enforced by the front-end) while serving billions of queries each day at low latencies. It was developed with the goal of being able to quickly and scalably search the social graph and perform complex set operations. \\
 
 \noindent According to [Curtiss et al.] there exist similar search indexing systems, but no one that is initially built to support social graph search and with the scale of Unicorn both in data volume and query volume. Hence, the motivation behind Unicorn was to build a indexing system specific for social graph purposes. By building a specialized indexing system for the Facebook back-end, Facebook-specific properties could be incorporated into the design. Hence, choices such as representing the social graph as an adjacency list because of observations that the social graph is sparse (average number of friends is 130) \textcolor{red}{The paper says that the motivation is in section 2-5, but I'm not sure if this should rather be in the ''techniques section"}.\\
 % Motivation, old system didn't scale when reaching x users.
@@ -26,11 +26,14 @@ The Unicorn cluster architecture is partitioned into verticals each representing
 % Apply, extract
 % Truncating
 
+%Techniques developed, presented, in the paper:
+% 
+
 \noindent \\ Since the main focus of the paper is to describe the data model and query language as well at the evolution of Unicorn it do not include many results. Even so, the few result mentioned will be presented here. To get an understanding of query performance, the paper includes performance results for the query ''People who like Computer Science". Using their APPLY operator the query would look like this\\
 
 \noindent \textbf{(apply friend: likers: 104076956295773)}\\
 
-where \textbf{104076956295773} is the id of computer science, \textbf{likers:} means get the likers of, and \textbf{friend:} means get the friends of.. Since the inner query will return 6 million likers, it has to be truncated before executing the out query. By varying the inner truncation limit the latency and average aggregate CPU time could be evaluated. Their results shows how large truncation limits leads to higher latency and cost. As the inner truncation limit reached 5000, the latency was passing 100\textit{ms} which they consider to be a reasonable threshold. These results show that truncation will always be required, and that it is therefore very important with good inner ranking, even though needle-in-a-haystack results are better than nothing. 
+where \textbf{104076956295773} is the id of computer science, \textbf{likers:} means get the likers of, and \textbf{friend:} means get the friends of.. Since the inner query will return 6 million likers, it has to be truncated before executing the out query. By varying the inner truncation limit the latency and average aggregate CPU time could be evaluated. Their results shows how large truncation limits leads to higher latency and cost. As the inner truncation limit reached 5000, the latency was passing 100\textit{ms} which they consider to be a reasonable threshold. These results show that truncation will always be required, and that it is therefore very important with good inner ranking, even though needle-in-a-haystack results are better than nothing. \\
 
 \noindent The application of Unicorn is, of course, to be the back-end of Facebook's search engine. Unicorn should however be possible to use for different types of Internet graph search where nodes represent entities and edges represents relationships between those entities. As mentioned earlier, \textcolor{red}{If I remove it from the paragraph above I need to rewrite this.} Unicorn is implemented to optimize search in the Facebook social graph, and therefore lots of design choices are based on Facebook-specific properties. Unicorn would therefore be most useful for applications where the graph structure, data model, and query logic is similar. \\
 
