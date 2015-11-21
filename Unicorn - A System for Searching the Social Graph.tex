@@ -29,6 +29,8 @@ The domain area of Unicorn is social graph search and retrieval. Unicorn is a in
 %Techniques developed, presented, in the paper:
 
 \noindent Most of the paper goes into describing query technique, so there is no room to go into details here, but the main techniques developed will be presented. In the data model, each document has a sort key, to ensure that the globally most important id's are stored at the top of the adjacency list. However, global relevance is not enough to provide good query results, therefore extra data is stored with each document to provide useful filtering options. 
+Another technique presented is that Unicorn is sharded by result-id. This ensures that even though some machines might be down, the system is still able to return some results. Sharding also provides the advantage that set operations can be performed at index server (leaf) level, so that the computational load can be split between a number of machines. 
+To ensure relevant query result uses two operators called WEAK-AND and STRONG-OR. The first one forces some fraction of the result to possess some trait, while as the second one requires certain operands to be present in a fraction of the results. Together, these operators help provide the user with more relevant results. 
 
 \noindent Since the main focus of the paper is to describe the data model and query language as well at the evolution of Unicorn it do not include many results. Even so, the few result mentioned will be presented here. To get an understanding of query performance, the paper includes performance results for the query ''People who like Computer Science". Using their APPLY operator the query would look like this\\
 
