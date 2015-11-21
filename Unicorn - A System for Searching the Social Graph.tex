@@ -14,8 +14,8 @@ The domain area of Unicorn is social graph search and retrieval. Unicorn is a in
 \noindent According to [Curtiss et al.] there exist similar search indexing systems, but no one that is initially built to support social graph search and with the scale of Unicorn both in data volume and query volume. Hence, the motivation behind Unicorn was to build a indexing system specific for social graph purposes. By building a specialized indexing system for the Facebook back-end, Facebook-specific properties could be incorporated into the design. Hence, choices such as representing the social graph as an adjacency list because of observations that the social graph is sparse (average number of friends is 130) \textcolor{red}{The paper says that the motivation is in section 2-5, but I'm not sure if this should rather be in the ''techniques section"}.\\
 % Motivation, old system didn't scale when reaching x users.
 
-\noindent Techniques\\ 
-The Unicorn cluster architecture is partitioned into verticals each representing an entity (users, pages etc.). The front-end communicate with a top aggregator which determines which vertical(s) the query needs to be sent to. A vertical consists of Unicorn tiers containing racks which each hold one rack aggratator and index servers. \\
+%\noindent Techniques\\ 
+%The Unicorn cluster architecture is partitioned into verticals each representing an entity (users, pages etc.). %The front-end communicate with a top aggregator which determines which vertical(s) the query needs to be %sent to. A vertical consists of Unicorn tiers containing racks which each hold one rack aggratator and index %servers. \\
 
 % Rack aggragator
 % Filtering index servers
@@ -27,9 +27,10 @@ The Unicorn cluster architecture is partitioned into verticals each representing
 % Truncating
 
 %Techniques developed, presented, in the paper:
-% 
 
-\noindent \\ Since the main focus of the paper is to describe the data model and query language as well at the evolution of Unicorn it do not include many results. Even so, the few result mentioned will be presented here. To get an understanding of query performance, the paper includes performance results for the query ''People who like Computer Science". Using their APPLY operator the query would look like this\\
+\noindent Most of the paper goes into describing query technique, so there is no room to go into details here, but the main techniques developed will be presented. In the data model, each document has a sort key, to ensure that the globally most important id's are stored at the top of the adjacency list. However, global relevance is not enough to provide good query results, therefore extra data is stored with each document to provide useful filtering options. 
+
+\noindent Since the main focus of the paper is to describe the data model and query language as well at the evolution of Unicorn it do not include many results. Even so, the few result mentioned will be presented here. To get an understanding of query performance, the paper includes performance results for the query ''People who like Computer Science". Using their APPLY operator the query would look like this\\
 
 \noindent \textbf{(apply friend: likers: 104076956295773)}\\
 
