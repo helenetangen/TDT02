@@ -14,23 +14,13 @@ The domain area of Unicorn is social graph search and retrieval. Unicorn is a in
 \noindent According to [Curtiss et al.] there exist similar search indexing systems, but no one that is initially built to support social graph search and with the scale of Unicorn both in data volume and query volume. Hence, the motivation behind Unicorn was to build a indexing system specific for social graph purposes. By building a specialized indexing system for the Facebook back-end, Facebook-specific properties could be incorporated into the design. Hence, choices such as representing the social graph as an adjacency list because of observations that the social graph is sparse (average number of friends is 130) \textcolor{red}{The paper says that the motivation is in section 2-5, but I'm not sure if this should rather be in the ''techniques section"}.\\
 % Motivation, old system didn't scale when reaching x users.
 
-%\noindent Techniques\\ 
-%The Unicorn cluster architecture is partitioned into verticals each representing an entity (users, pages etc.). %The front-end communicate with a top aggregator which determines which vertical(s) the query needs to be %sent to. A vertical consists of Unicorn tiers containing racks which each hold one rack aggratator and index %servers. \\
-
-% Rack aggragator
-% Filtering index servers
-% Return partial results (result based, not input based)
-% Privacy in front-end
-% Building specialized algorithms for racks.
-% Verticals and racks - why, above.
-% Apply, extract
-% Truncating
-
-%Techniques developed, presented, in the paper:
-
 \noindent Most of the paper goes into describing query technique, so there is no room to go into details here, but the main techniques developed will be presented. In the data model, each document has a sort key, to ensure that the globally most important id's are stored at the top of the adjacency list. However, global relevance is not enough to provide good query results, therefore extra data is stored with each document to provide useful filtering options. 
 Another technique presented is that Unicorn is sharded by result-id. This ensures that even though some machines might be down, the system is still able to return some results. Sharding also provides the advantage that set operations can be performed at index server (leaf) level, so that the computational load can be split between a number of machines. 
 To ensure relevant query result uses two operators called WEAK-AND and STRONG-OR. The first one forces some fraction of the result to possess some trait, while as the second one requires certain operands to be present in a fraction of the results. Together, these operators help provide the user with more relevant results. 
+Unicorn provides scoring based on meta data, but also implement a heap-based data structure to ensure diversity in the results by prioritizing results that provide diversity to the results. 
+The Unicorn cluster is partitioned into verticals each representing an entity (users, pages, etc..). The top aggregator decides which vertical(s) the query is sent to. A vertical consists of Unicorn tiers containing racks which each hold one rack aggretator and index servers. An advantage of this partitioning is that optimal ranking algorithms can be built for each vertical. Results are collected, combined from the verticals and truncated if necessary. 
+Two operators that Facebook is very proud of is their APPLY and EXTRACT operators. APPLY allows clients to query for a set of ids and then use those to construct and perform a new query, the advantage of this operator is that it allows the system to perform expensive operations at a low level. The extract operator performs partly denormalization of data to save space.
+As mentioned above, the front-end takes care of privacy, but in order to be able to do so, Unicorn provides the front-end with the lineage of the data. By lineage, they mean the relevant information about the edges traversed for finding the results. By inspecting the lineage, the front-end can filter based on privacy settings.\\
 
 \noindent Since the main focus of the paper is to describe the data model and query language as well at the evolution of Unicorn it do not include many results. Even so, the few result mentioned will be presented here. To get an understanding of query performance, the paper includes performance results for the query ''People who like Computer Science". Using their APPLY operator the query would look like this\\
 
